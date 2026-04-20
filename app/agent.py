@@ -4,6 +4,7 @@ import time
 from dataclasses import dataclass
 
 from . import metrics
+from .errors import AgentGenerationError, EmptyRetrievalError
 from .mock_llm import FakeLLM
 from .mock_rag import retrieve
 from .pii import hash_user_id, summarize_text
@@ -48,6 +49,9 @@ class LabAgent:
                 "docs_preview": docs[:1] if docs else [],  # 🔥 NEW (optional but xịn)
             },
         ):
+            if not docs:
+                raise EmptyRetrievalError("Không tìm thấy dữ liệu xe phù hợp.")
+
             # clean prompt (trace readable hơn)
             prompt = f"""
             Feature: {feature}
@@ -56,6 +60,9 @@ class LabAgent:
             """.strip()
 
             response = self._generate(prompt)
+
+            if not response or not getattr(response, "text", "").strip():
+                raise AgentGenerationError("Agent không tạo được câu trả lời hợp lệ.")
 
         # ===== Metrics & scoring =====
         quality_score = self._heuristic_quality(message, response.text, docs)

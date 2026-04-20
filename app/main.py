@@ -3,19 +3,26 @@ from __future__ import annotations
 import os
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from structlog.contextvars import bind_contextvars
 from dotenv import load_dotenv
 
 load_dotenv()
 
 from .agent import LabAgent
+from .errors import AppError, EmptyMessageError
 from .incidents import disable, enable, status
 from .logging_config import configure_logging, get_logger
 from .metrics import record_error, snapshot
 from .middleware import CorrelationIdMiddleware
 from .pii import hash_user_id, summarize_text
 from .schemas import ChatRequest, ChatResponse
+from .tracing import tracing_enabled
+from pathlib import Path
+import json
+from app.dashboard_l1 import router as dashboard_l1_router
+from app.dashboard_l2 import router as dashboard_l2_router
+from app.dashboard_l3 import router as dashboard_l3_router
 from .tracing import flush_traces, tracing_enabled, get_client  # 🔥 NEW
 
 configure_logging()
@@ -23,6 +30,9 @@ log = get_logger()
 
 app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
+app.include_router(dashboard_l1_router)
+app.include_router(dashboard_l2_router)
+app.include_router(dashboard_l3_router)
 
 agent = LabAgent()
 
@@ -63,13 +73,17 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
         model=agent.model,
     )
 
-    log.info(
-        "request_received",
-        service="api",
-        payload={"message_preview": summarize_text(body.message)},
-    )
 
     try:
+        if not body.message or not body.message.strip():
+            raise EmptyMessageError("Người dùng chưa nhập nội dung câu hỏi.")
+
+        log.info(
+            "request_received",
+            service="api",
+            payload={"message_preview": summarize_text(body.message)},
+        )
+
         result = agent.run(
             user_id=body.user_id,
             feature=body.feature,
@@ -86,7 +100,6 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             trace_id = get_client().get_current_trace_id()
         except Exception:
             pass
-
         log.info(
             "response_sent",
             service="api",
@@ -108,23 +121,34 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             cost_usd=result.cost_usd,
             quality_score=result.quality_score,
         )
+    except AppError as exc:
+        record_error(exc.error_code)
+        log.warning(
+            "request_failed",
+            service="api",
+            error_category=exc.error_category,
+            error_type=exc.error_code,
+            payload={
+                "detail": exc.detail,
+                "message_preview": summarize_text(body.message),
+            },
+        )
+        raise HTTPException(status_code=exc.status_code, detail=exc.error_code) from exc
 
     except Exception as exc:  # pragma: no cover
         error_type = type(exc).__name__
         record_error(error_type)
-
         log.error(
             "request_failed",
             service="api",
             error_type=error_type,
+            error_category="system_error",
             payload={
                 "detail": str(exc),
                 "message_preview": summarize_text(body.message),
             },
         )
-
         raise HTTPException(status_code=500, detail=error_type) from exc
-
 
 @app.post("/incidents/{name}/enable")
 async def enable_incident(name: str) -> JSONResponse:
