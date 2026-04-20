@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from structlog.contextvars import bind_contextvars
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,11 +15,16 @@ from .middleware import CorrelationIdMiddleware
 from .pii import hash_user_id, summarize_text
 from .schemas import ChatRequest, ChatResponse
 from .tracing import tracing_enabled
+from pathlib import Path
+import json
+from .dashboard import router as dashboard_router
 
 configure_logging()
 log = get_logger()
 app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
+app.include_router(dashboard_router)
+
 agent = LabAgent()
 
 
@@ -65,6 +70,15 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             session_id=body.session_id,
             message=body.message,
         )
+        # log.info(
+        #     "response_sent",
+        #     service="api",
+        #     latency_ms=result.latency_ms,
+        #     tokens_in=result.tokens_in,
+        #     tokens_out=result.tokens_out,
+        #     cost_usd=result.cost_usd,
+        #     payload={"answer_preview": summarize_text(result.answer)},
+        # )
         log.info(
             "response_sent",
             service="api",
@@ -72,6 +86,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             tokens_in=result.tokens_in,
             tokens_out=result.tokens_out,
             cost_usd=result.cost_usd,
+            quality_score=result.quality_score,
             payload={"answer_preview": summarize_text(result.answer)},
         )
         return ChatResponse(
