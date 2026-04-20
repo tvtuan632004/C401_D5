@@ -1,23 +1,19 @@
-from __future__ import annotations
-
-import time
-
-from .incidents import STATE
-
-CORPUS = {
-    "refund": ["Refunds are available within 7 days with proof of purchase."],
-    "monitoring": ["Metrics detect incidents, traces localize them, logs explain root cause."],
-    "policy": ["Do not expose PII in logs. Use sanitized summaries only."],
-}
+from .vinfast_cars import VINFAST_CARS
 
 
-def retrieve(message: str) -> list[str]:
-    if STATE["tool_fail"]:
-        raise RuntimeError("Vector store timeout")
-    if STATE["rag_slow"]:
-        time.sleep(2.5)
-    lowered = message.lower()
-    for key, docs in CORPUS.items():
-        if key in lowered:
-            return docs
-    return ["No domain document matched. Use general fallback answer."]
+def retrieve(query: str) -> list[str]:
+    query = query.lower()
+    docs = []
+
+    for car in VINFAST_CARS.values():
+        if car["name"].lower().split()[1].lower() in query:
+            docs.append(
+                f"{car['name']} | Giá: {car['price']} | Tầm hoạt động: {car['range']} | {car['description']}"
+            )
+
+    if not docs:
+        docs.append(
+            "VinFast có các dòng xe điện: VF5, VF6, VF7, VF8, VF9."
+        )
+
+    return docs

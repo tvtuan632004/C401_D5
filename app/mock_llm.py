@@ -35,39 +35,36 @@ class FakeLLM:
 
         prompt_lower = prompt.lower()
 
-        # ===== RULE-BASED RESPONSES =====
-        if "dưới 300" in prompt_lower or "giá rẻ" in prompt_lower:
-            answer = "Bạn có thể tham khảo VinFast VF 3, đây là dòng xe mini với giá khoảng 302 triệu, phù hợp nhu cầu giá rẻ."
+        # ===== EXTRACT CONTEXT FROM RAG =====
+        # giả định prompt sẽ có dạng:
+        # "Question: ... \n Context: ..."
 
-        elif "vf 5" in prompt_lower:
-            answer = "VinFast VF 5 có giá khoảng 529 triệu và thường có ưu đãi giảm 6% tùy chương trình."
-
-        elif "vf e34" in prompt_lower:
-            answer = "VinFast VF e34 là xe phù hợp đi trong đô thị, thiết kế nhỏ gọn và tiện lợi."
-
-        elif "vf 6" in prompt_lower and "vf 7" in prompt_lower:
-            answer = "VF 6 có giá khoảng 689 triệu, VF 7 khoảng 789 triệu, cả hai có kích thước SUV nhưng VF 7 lớn hơn."
-
-        elif "300 km" in prompt_lower:
-            answer = "VinFast Herio có thể chạy khoảng 326 km mỗi lần sạc, phù hợp nhu cầu di chuyển xa."
-
-        elif "vf 8" in prompt_lower:
-            answer = "VinFast VF 8 thuộc phân khúc SUV và có giá từ khoảng 1.019 tỷ đồng."
-
-        elif "vf 9" in prompt_lower:
-            answer = "VinFast VF 9 có 3 hàng ghế và 6 chỗ ngồi, phù hợp gia đình lớn."
-
-        elif "dịch vụ" in prompt_lower:
-            answer = "VinFast EC Van là lựa chọn phù hợp cho dịch vụ vận tải với khả năng tải hàng tốt."
-
-        elif "nhỏ gọn" in prompt_lower:
-            answer = "Bạn nên chọn VinFast VF 3, đây là xe điện nhỏ gọn rất phù hợp đi trong thành phố."
-
-        elif "vf 3" in prompt_lower:
-            answer = "VinFast VF 3 có giá khoảng 302 triệu và đi được khoảng 210 km mỗi lần sạc."
-
+        if "context:" in prompt_lower:
+            context = prompt.split("Context:")[-1].strip()
         else:
-            answer = "VinFast có nhiều dòng xe điện phù hợp nhu cầu khác nhau, bạn có thể cân nhắc VF 3, VF 5 hoặc VF 6."
+            context = ""
+
+        # ===== RESPONSE LOGIC =====
+
+        # Nếu có context → ưu tiên dùng context
+        if context and "vinfast" in context.lower():
+            answer = f"Dựa trên thông tin tìm được: {context}"
+
+        # So sánh xe
+        elif "so sánh" in prompt_lower:
+            answer = "Bạn nên so sánh dựa trên giá, tầm hoạt động và phân khúc của từng dòng xe VinFast."
+
+        # Xe chạy xa
+        elif "km" in prompt_lower or "xa" in prompt_lower:
+            answer = "Bạn nên chọn xe có tầm hoạt động cao như VF8 hoặc VF9 để đi xa."
+
+        # Xe nhỏ gọn
+        elif "nhỏ gọn" in prompt_lower or "thành phố" in prompt_lower:
+            answer = "VF5 là lựa chọn phù hợp vì là xe điện đô thị nhỏ gọn."
+
+        # fallback
+        else:
+            answer = "VinFast có nhiều dòng xe như VF5, VF6, VF7, VF8 và VF9 phù hợp nhiều nhu cầu khác nhau."
 
         return FakeResponse(
             text=answer,
