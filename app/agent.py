@@ -49,29 +49,9 @@ class LabAgent:
                 "docs_preview": docs[:1] if docs else [],  # 🔥 NEW (optional but xịn)
             },
         ):
-<<<<<<< HEAD
-            docs = retrieve(message)
-
             if not docs:
                 raise EmptyRetrievalError("Không tìm thấy dữ liệu xe phù hợp.")
 
-            prompt = f"""Bạn là chuyên gia tư vấn xe VinFast.
-
-Thông tin xe:
-{docs}
-
-Câu hỏi khách hàng:
-{message}
-
-Hãy tư vấn xe phù hợp và giải thích lý do.
-"""
-
-            response = self.llm.generate(prompt)
-
-            if not response or not getattr(response, "text", "").strip():
-                raise AgentGenerationError("Agent không tạo được câu trả lời hợp lệ.")
-
-=======
             # clean prompt (trace readable hơn)
             prompt = f"""
             Feature: {feature}
@@ -81,8 +61,10 @@ Hãy tư vấn xe phù hợp và giải thích lý do.
 
             response = self._generate(prompt)
 
+            if not response or not getattr(response, "text", "").strip():
+                raise AgentGenerationError("Agent không tạo được câu trả lời hợp lệ.")
+
         # ===== Metrics & scoring =====
->>>>>>> c112f32ddf4d8315c361422e88d31a316a79e52b
         quality_score = self._heuristic_quality(message, response.text, docs)
         latency_ms = int((time.perf_counter() - started) * 1000)
         cost_usd = self._estimate_cost(
