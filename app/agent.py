@@ -4,6 +4,7 @@ import time
 from dataclasses import dataclass
 
 from . import metrics
+from .errors import AgentGenerationError, EmptyRetrievalError
 from .mock_llm import FakeLLM
 from .mock_rag import retrieve
 from .pii import hash_user_id, summarize_text
@@ -40,8 +41,25 @@ class LabAgent:
             },
         ):
             docs = retrieve(message)
-            prompt = f"Feature={feature}\nDocs={docs}\nQuestion={message}"
+
+            if not docs:
+                raise EmptyRetrievalError("Không tìm thấy dữ liệu xe phù hợp.")
+
+            prompt = f"""Bạn là chuyên gia tư vấn xe VinFast.
+
+Thông tin xe:
+{docs}
+
+Câu hỏi khách hàng:
+{message}
+
+Hãy tư vấn xe phù hợp và giải thích lý do.
+"""
+
             response = self.llm.generate(prompt)
+
+            if not response or not getattr(response, "text", "").strip():
+                raise AgentGenerationError("Agent không tạo được câu trả lời hợp lệ.")
 
         quality_score = self._heuristic_quality(message, response.text, docs)
         latency_ms = int((time.perf_counter() - started) * 1000)

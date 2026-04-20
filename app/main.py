@@ -7,7 +7,9 @@ from fastapi.responses import JSONResponse
 from structlog.contextvars import bind_contextvars
 from dotenv import load_dotenv
 load_dotenv()
+
 from .agent import LabAgent
+from .errors import AppError, EmptyMessageError
 from .incidents import disable, enable, status
 from .logging_config import configure_logging, get_logger
 from .metrics import record_error, snapshot
@@ -52,13 +54,17 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
         feature=body.feature,
         model=agent.model,
     )
-    
-    log.info(
-        "request_received",
-        service="api",
-        payload={"message_preview": summarize_text(body.message)},
-    )
+
     try:
+        if not body.message or not body.message.strip():
+            raise EmptyMessageError("Người dùng chưa nhập nội dung câu hỏi.")
+
+        log.info(
+            "request_received",
+            service="api",
+            payload={"message_preview": summarize_text(body.message)},
+        )
+
         result = agent.run(
             user_id=body.user_id,
             feature=body.feature,
@@ -66,6 +72,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             message=body.message,
         )
         flush_traces()
+
         log.info(
             "response_sent",
             service="api",
@@ -75,6 +82,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             cost_usd=result.cost_usd,
             payload={"answer_preview": summarize_text(result.answer)},
         )
+
         return ChatResponse(
             answer=result.answer,
             correlation_id=request.state.correlation_id,
@@ -84,17 +92,34 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             cost_usd=result.cost_usd,
             quality_score=result.quality_score,
         )
-    except Exception as exc:  # pragma: no cover
-        error_type = type(exc).__name__
-        record_error(error_type)
-        log.error(
-            "request_failed",
-            service="api",
-            error_type=error_type,
-            payload={"detail": str(exc), "message_preview": summarize_text(body.message)},
-        )
-        raise HTTPException(status_code=500, detail=error_type) from exc
 
+    except AppError as exc:
+        record_error(exc.error_code)
+        log.warning(
+            "handled_error",
+            service="api",
+            error_category=exc.error_category,
+            error_code=exc.error_code,
+            payload={
+                "detail": exc.detail,
+                "message_preview": summarize_text(body.message),
+            },
+        )
+        raise HTTPException(status_code=exc.status_code, detail=exc.error_code) from exc
+
+    except Exception as exc:  # pragma: no cover
+        record_error("UNHANDLED_EXCEPTION")
+        log.error(
+            "system_error",
+            service="api",
+            error_category="system_error",
+            error_code="UNHANDLED_EXCEPTION",
+            payload={
+                "detail": str(exc),
+                "message_preview": summarize_text(body.message),
+            },
+        )
+        raise HTTPException(status_code=500, detail="UNHANDLED_EXCEPTION") from exc
 
 @app.post("/incidents/{name}/enable")
 async def enable_incident(name: str) -> JSONResponse:
