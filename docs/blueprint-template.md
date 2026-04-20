@@ -9,8 +9,8 @@
   - Member A: [Trần Văn Tuấn] | Role: Logging & PII
   - Member B: [Lê Đình Việt] | Role: Tracing & Enrichment
   - Member B: [Lê Đình Việt] | Role: SLO & Alerts
-  - Member A + B: [Hồ Bảo Thư + Trần Văn Tuấn] | Role: Load Test & Dashboard
-  - Member E: [Hồ Bảo Thư] | Role: Demo & Report
+  - Member A + C: [Hồ Bảo Thư + Trần Văn Tuấn] | Role: Load Test & Dashboard
+  - Member C: [Hồ Bảo Thư] | Role: Demo & Report
 
 ---
 
@@ -55,13 +55,15 @@
 
 ## 5. Individual Contributions & Evidence
 
-### [MEMBER_A_NAME]
+### [MEMBER_A_NAME]: 
 - [TASKS_COMPLETED]: 
 - [EVIDENCE_LINK]: (Link to specific commit or PR)
 
-### [MEMBER_B_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
+### [MEMBER_B_NAME]: Lê Đình Việt
+- [TASKS_COMPLETED]: Tracing & Enrichment + SLO & Alerts
+- [EVIDENCE_LINK]: Commit
+
+
 
 ### [MEMBER_C_NAME]
 - [TASKS_COMPLETED]: 
