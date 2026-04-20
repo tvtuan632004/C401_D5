@@ -1,0 +1,21 @@
+[
+    {
+        "station_name": "Vincom phạm ngọc thạch",
+        "charger_types": [
+            "AC (11kW)",
+            "DC (80kW)",
+            "DC (120kW)",
+            "DC (30kW)",
+            "DC (60kW)",
+            "DC (150kW)"
+        ],
+        "address": "75 phạm ngọc thạch "
+    },
+    {
+        "station_name": "sgs",
+        "charger_types": [
+            "AC (11kW)"
+        ],
+        "address": "ngã tử sở"
+    }
+]

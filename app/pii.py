@@ -9,13 +9,19 @@ PII_PATTERNS: dict[str, str] = {
     "cccd": r"\b\d{12}\b",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
     # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
+    # Vietnamese address keywords (địa chỉ cơ bản)
+    "address": r"\b(số\s?\d+|đường|phường|quận|tp\.?|thành phố)\b.*",
+
+    # Bank account (generic - 8 đến 16 số)
+    "bank_account": r"\b\d{8,16}\b",
+
 }
 
 
 def scrub_text(text: str) -> str:
     safe = text
     for name, pattern in PII_PATTERNS.items():
-        safe = re.sub(pattern, f"[REDACTED_{name.upper()}]", safe)
+        safe = re.sub(pattern, f"[REDACTED_{name.upper()}]", safe, flags=re.IGNORECASE)
     return safe
 
 

@@ -17,14 +17,18 @@ from .schemas import ChatRequest, ChatResponse
 from .tracing import tracing_enabled
 from pathlib import Path
 import json
-from .dashboard import router as dashboard_router
+from app.dashboard_l1 import router as dashboard_l1_router
+from app.dashboard_l2 import router as dashboard_l2_router
+from app.dashboard_l3 import router as dashboard_l3_router
+from .tracing import flush_traces, tracing_enabled
 
 configure_logging()
 log = get_logger()
 app = FastAPI(title="Day 13 Observability Lab")
 app.add_middleware(CorrelationIdMiddleware)
-app.include_router(dashboard_router)
-
+app.include_router(dashboard_l1_router)
+app.include_router(dashboard_l2_router)
+app.include_router(dashboard_l3_router)
 agent = LabAgent()
 
 
@@ -70,15 +74,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
             session_id=body.session_id,
             message=body.message,
         )
-        # log.info(
-        #     "response_sent",
-        #     service="api",
-        #     latency_ms=result.latency_ms,
-        #     tokens_in=result.tokens_in,
-        #     tokens_out=result.tokens_out,
-        #     cost_usd=result.cost_usd,
-        #     payload={"answer_preview": summarize_text(result.answer)},
-        # )
+        flush_traces()
         log.info(
             "response_sent",
             service="api",

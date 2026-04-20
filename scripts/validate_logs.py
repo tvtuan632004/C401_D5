@@ -2,7 +2,7 @@ import json
 import sys
 from pathlib import Path
 
-LOG_PATH = Path("data/logs.jsonl")
+LOG_PATH = Path(__file__).resolve().parent.parent / "data" / "logs.jsonl"
 REQUIRED_FIELDS = {"ts", "level", "service", "event", "correlation_id"}
 ENRICHMENT_FIELDS = {"user_id_hash", "session_id", "feature", "model"}
 

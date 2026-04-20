@@ -1,3 +1,14 @@
-{"question":"What is your refund policy?","must_include":["7 days","proof of purchase"]}
-{"question":"Explain why metrics traces and logs work together","must_include":["metrics","traces","logs"]}
-{"question":"What should not appear in app logs?","must_include":["PII","sensitive"]}
+// {"question":"What is your refund policy?","must_include":["7 days","proof of purchase"]}
+// {"question":"Explain why metrics traces and logs work together","must_include":["metrics","traces","logs"]}
+// {"question":"What should not appear in app logs?","must_include":["PII","sensitive"]}
+
+{"question":"Tôi muốn mua xe VinFast giá rẻ, có xe nào dưới 300 triệu không?","must_include":["VF 3","302","mini"]}
+{"question":"VinFast VF 5 giá bao nhiêu và có ưu đãi gì?","must_include":["529","giảm 6%"]}
+{"question":"Xe VF e34 phù hợp đi trong thành phố không?","must_include":["đô thị","nhỏ gọn"]}
+{"question":"So sánh VF 6 và VF 7 về giá và kích thước","must_include":["689","789","kích thước"]}
+{"question":"Xe VinFast nào chạy được hơn 300 km mỗi lần sạc?","must_include":["326","Herio"]}
+{"question":"VF 8 thuộc phân khúc gì và giá bao nhiêu?","must_include":["SUV","1.019"]}
+{"question":"VF 9 có bao nhiêu chỗ ngồi?","must_include":["6","3 hàng"]}
+{"question":"Xe VinFast nào phù hợp chạy dịch vụ?","must_include":["EC Van","tải"]}
+{"question":"Tôi cần xe điện nhỏ gọn đi trong thành phố, nên chọn xe nào?","must_include":["VF 3","nhỏ gọn"]}
+{"question":"VinFast VF 3 có giá bao nhiêu và đi được bao xa?","must_include":["302","210"]}

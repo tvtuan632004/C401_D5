@@ -1,0 +1,237 @@
+{
+  "VF 3": {
+    "Thông số kỹ thuật": {
+      "Kích thước tổng thể (Dài x Rộng x Cao)": "3.114 x 1.673 x 1.567 mm",
+      "Chiều dài cơ sở": "2.075 mm",
+      "Khoảng sáng gầm xe": "191 mm",
+      "Trọng lượng không tải": "857 kg",
+      "Loại động cơ": "Điện",
+      "Dẫn động": "Cầu sau (RWD)",
+      "Loại pin": "Pin LFP 18,64 kWh",
+      "Quãng đường tối đa": "Xấp xỉ 210 km một lần sạc đầy (theo điều kiện tiêu chuẩn NEDC)",
+      "Hộp số": "Số tự động (AT)",
+      "La-zăng": "16 inch"
+    },
+    "Giá bán": {
+      "Giá niêm yết": "302 triệu đồng (Eco), 315 triệu đồng (Plus)",
+      "Ưu đãi tài chính": "Giảm tới 6%, hỗ trợ vay tới 100%"
+    },
+    "Màu sắc": {
+      "Màu cơ bản": ["Trắng", "Đỏ", "Xanh Dương Đậm", "Xám"],
+      "Màu nâng cao": ["Vàng", "Hồng Tím", "Xanh Lá Nhạt", "Xanh Dương Nhạt", "Hồng Phấn"],
+      "Chi phí bổ sung": "Khoảng 8 triệu đồng"
+    }
+  },
+  "VF 5": {
+    "Thông số kỹ thuật": {
+      "Kích thước": {
+        "Dài x Rộng x Cao": "3.967 x 1.723 x 1.580 mm",
+        "Chiều dài cơ sở": "2.513 mm",
+        "Khoảng sáng gầm xe": "182 mm"
+      },
+      "Ngoại thất": {
+        "Màu sắc": "16 lựa chọn",
+        "Trang bị": [
+          "La-zăng 17 inch",
+          "Đèn Halogen",
+          "Đèn định vị LED",
+          "Gương chỉnh điện tích hợp cảnh báo",
+          "Kính chỉnh điện",
+          "Kính chắn gió chống UV"
+        ]
+      },
+      "Nội thất": {
+        "Màu sắc": ["Đen", "Đen-Xanh", "Đen-Cam"],
+        "Mô tả": "Thiết kế tối giản, vật liệu da, gỗ, kim loại"
+      }
+    },
+    "Giá bán": {
+      "Giá niêm yết": "529 triệu VND",
+      "Giá lăn bánh": {
+        "Hà Nội": "545 triệu",
+        "TP.HCM": "545 triệu",
+        "Khác": "531 triệu"
+      },
+      "Ưu đãi": "Giảm ~31,7 triệu (6%)"
+    }
+  },
+  "VF e34": {
+    "Thông số kỹ thuật": {
+      "Kích thước tổng thể": "B-SUV đô thị",
+      "Ngoại thất": {
+        "Màu sắc": ["Trắng", "Bạc", "Xanh dương", "Xanh lá", "Cam", "Đỏ", "Đen", "Xám"],
+        "Trang bị": [
+          "Đèn LED",
+          "Đèn hậu LED",
+          "Gương chỉnh điện",
+          "Cốp điện",
+          "Mâm 18 inch",
+          "Kính UV",
+          "Gạt mưa tự động"
+        ]
+      },
+      "Nội thất": {
+        "Ghế": [
+          "Bọc da",
+          "Tựa đầu tích hợp",
+          "Chỉnh cơ 4 hướng"
+        ]
+      }
+    },
+    "Giá bán": {
+      "Giá niêm yết": "710 triệu",
+      "Giá lăn bánh": {
+        "Hà Nội": "732 triệu",
+        "TP.HCM": "732 triệu",
+        "Khác": "713 triệu"
+      }
+    }
+  },
+  "VF 6": {
+    "Thông số kỹ thuật": {
+      "Kích thước tổng thể": "4.238 x 1.820 x 1.594 mm",
+      "Chiều dài cơ sở": "2.730 mm",
+      "La-zăng": "19 inch",
+      "Màu ngoại thất": ["Trắng", "Đen", "Bạc", "Xanh", "Đỏ", "Xanh Blue"],
+      "Màu nội thất": ["Nâu", "Đen"]
+    },
+    "Giá bán": {
+      "Eco": {
+        "Giá niêm yết": "689 triệu",
+        "Giá lăn bánh": {
+          "Hà Nội": "705 triệu",
+          "TP.HCM": "705 triệu",
+          "Khác": "691 triệu"
+        }
+      },
+      "Plus": {
+        "Giá niêm yết": "745 triệu",
+        "Giá lăn bánh": {
+          "Hà Nội": "761 triệu",
+          "TP.HCM": "761 triệu",
+          "Khác": "747 triệu"
+        }
+      }
+    },
+    "Đánh giá": {
+      "Ưu điểm": [
+        "Thiết kế hiện đại",
+        "Nội thất rộng",
+        "Vận hành ổn định"
+      ],
+      "Nhược điểm": [
+        "Eco thiếu tính năng",
+        "Không có sạc nhanh",
+        "Phạm vi hạn chế"
+      ]
+    }
+  },
+  "VF 7": {
+    "Thông số kỹ thuật": {
+      "Phân khúc": "SUV-C",
+      "Số chỗ": "5",
+      "Kích thước": "4.545 x 1.890 x 1.635 mm",
+      "Chiều dài cơ sở": "2.840 mm",
+      "Khoảng sáng gầm": "190 mm",
+      "Màu ngoại thất": ["Trắng", "Đen", "Đỏ", "Xám", "Xanh Dương", "Xanh Lá"],
+      "Nội thất": ["Đen", "Be"],
+      "Trang bị": [
+        "Màn hình 12.9 inch",
+        "Vô lăng D-cut",
+        "Cửa sổ trời",
+        "Ghế da"
+      ]
+    },
+    "Giá bán": {
+      "Eco": "789 triệu",
+      "Plus": "949 triệu",
+      "Plus kính": "969 triệu"
+    }
+  },
+  "VF 8": {
+    "Thông số kỹ thuật": {
+      "Phân khúc": "SUV D",
+      "Kích thước": "4.750 x 1.934 x 1.667 mm",
+      "Chiều dài cơ sở": "2.950 mm"
+    },
+    "Giá bán": {
+      "Eco": "1.019 tỷ",
+      "Plus": "1.199 tỷ"
+    }
+  },
+  "VF 9": {
+    "Thông số kỹ thuật": {
+      "Số chỗ": "6",
+      "Kích thước": "5.120 x 2.000 x 1.721 mm"
+    },
+    "Giá bán": {
+      "Eco": "1.499 tỷ",
+      "Plus": "1.699 tỷ"
+    }
+  },
+  "EC Van": {
+    "Thông số kỹ thuật": {
+      "Kích thước": "3.767 x 1.680 x 1.790 mm",
+      "Tải trọng": "650 kg",
+      "Quãng đường": "175 km"
+    },
+    "Giá bán": {
+      "Tiêu chuẩn": "285 triệu",
+      "Nâng cao": "305 triệu"
+    }
+  },
+  "Mino": {
+    "Thông số kỹ thuật": {
+      "Kích thước": "3.090 x 1.496 x 1.659 mm",
+      "Pin": "14,7 kWh",
+      "Quãng đường": "170 km"
+    },
+    "Giá bán": {
+      "Giá niêm yết": "269 triệu"
+    }
+  },
+  "Herio": {
+    "Thông số kỹ thuật": {
+      "Kích thước": "3967 x 1723 x 1579 mm",
+      "Công suất": "100 kW",
+      "Quãng đường": "326 km"
+    },
+    "Giá bán": {
+      "Giá niêm yết": "499 triệu"
+    }
+  },
+  "Limo": {
+    "Thông số kỹ thuật": {
+      "Loại xe": "MPV 7 chỗ",
+      "Kích thước": "4.730 x 1.870 x 1.690 mm"
+    },
+    "Giá bán": {
+      "Khởi điểm": "749 triệu"
+    }
+  },
+  "MPV7": {
+    "Thông số kỹ thuật": {
+      "Kích thước": "4.740 x 1.872 x 1.734 mm",
+      "Trang bị": [
+        "LED chữ V",
+        "Màn hình 10.1 inch",
+        "Điều hòa tự động"
+      ]
+    },
+    "Giá bán": {
+      "Giá niêm yết": "819 triệu"
+    }
+  },
+  "VF Wild": {
+    "Thông số kỹ thuật": {
+      "Chiều dài": "5.324 mm",
+      "Chiều rộng": "1.997 mm",
+      "Thiết kế": "Không cột B, cửa mở ngược"
+    },
+    "Giá dự kiến": "800 triệu - 1.1 tỷ",
+    "Thời gian": {
+      "Đặt cọc": "Q2/2026",
+      "Bàn giao": "Cuối 2026"
+    }
+  }
+}
