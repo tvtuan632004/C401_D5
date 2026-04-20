@@ -62,7 +62,28 @@
 ### [MEMBER_B_NAME]: Lê Đình Việt
 - [TASKS_COMPLETED]: Tracing & Enrichment + SLO & Alerts
 - [EVIDENCE_LINK]: Commit
+Author: dviet04 <ledinhviet2507@gmail.com>
+Date:   Mon Apr 20 17:28:24 2026 +0700
 
+    update loging to have rag span and llm span
+
+commit 284f2d1e89c04edfbe5c7d0a4d4ed87a90e1a8a3
+Author: dviet04 <ledinhviet2507@gmail.com>
+Date:   Mon Apr 20 17:07:41 2026 +0700
+
+    update span with rag span, llm span  
+
+commit 0a9f4f3f5e76cd13a7ef0431ae5fabc4b83d3141
+Author: dviet04 <ledinhviet2507@gmail.com>
+Date:   Mon Apr 20 17:06:00 2026 +0700
+
+    update SLO & Alerts version2
+
+commit 4a8f35bb8a9c9a825965e2a0605e1a6d9538d937
+Author: dviet04 <ledinhviet2507@gmail.com>
+Date:   Mon Apr 20 16:20:53 2026 +0700
+
+    update agent.py, main.py and tracing.py to implement role: Tracing and Ẻnichment. Version2
 
 
 ### [MEMBER_C_NAME]
