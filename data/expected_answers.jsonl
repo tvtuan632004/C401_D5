@@ -1,14 +1,14 @@
-// {"question":"What is your refund policy?","must_include":["7 days","proof of purchase"]}
-// {"question":"Explain why metrics traces and logs work together","must_include":["metrics","traces","logs"]}
-// {"question":"What should not appear in app logs?","must_include":["PII","sensitive"]}
-
-{"question":"Tôi muốn mua xe VinFast giá rẻ, có xe nào dưới 300 triệu không?","must_include":["VF 3","302","mini"]}
-{"question":"VinFast VF 5 giá bao nhiêu và có ưu đãi gì?","must_include":["529","giảm 6%"]}
-{"question":"Xe VF e34 phù hợp đi trong thành phố không?","must_include":["đô thị","nhỏ gọn"]}
-{"question":"So sánh VF 6 và VF 7 về giá và kích thước","must_include":["689","789","kích thước"]}
-{"question":"Xe VinFast nào chạy được hơn 300 km mỗi lần sạc?","must_include":["326","Herio"]}
-{"question":"VF 8 thuộc phân khúc gì và giá bao nhiêu?","must_include":["SUV","1.019"]}
-{"question":"VF 9 có bao nhiêu chỗ ngồi?","must_include":["6","3 hàng"]}
-{"question":"Xe VinFast nào phù hợp chạy dịch vụ?","must_include":["EC Van","tải"]}
-{"question":"Tôi cần xe điện nhỏ gọn đi trong thành phố, nên chọn xe nào?","must_include":["VF 3","nhỏ gọn"]}
-{"question":"VinFast VF 3 có giá bao nhiêu và đi được bao xa?","must_include":["302","210"]}
+{"question":"VinFast VF5 giá bao nhiêu?","must_include":["458","VF5"]}
+{"question":"VF6 chạy được bao nhiêu km?","must_include":["399","VF6"]}
+{"question":"Cho tôi thông tin về VF7","must_include":["850","431"]}
+{"question":"VF8 thuộc phân khúc gì?","must_include":["SUV","D"]}
+{"question":"VF9 có đặc điểm gì nổi bật?","must_include":["7 chỗ","594"]}
+{"question":"So sánh VF5 và VF6","must_include":["VF5","VF6"]}
+{"question":"VF6 và VF7 khác nhau như thế nào?","must_include":["VF6","VF7"]}
+{"question":"So sánh VF7 và VF8 về giá và tầm hoạt động","must_include":["850","471"]}
+{"question":"VF8 và VF9 nên chọn xe nào tốt hơn?","must_include":["VF8","VF9"]}
+{"question":"Tôi cần xe điện nhỏ gọn đi trong thành phố","must_include":["VF5","nhỏ gọn"]}
+{"question":"Xe nào phù hợp gia đình 5 người?","must_include":["VF6","VF8"]}
+{"question":"Tôi muốn xe chạy xa nhất thì nên chọn xe nào?","must_include":["VF9","594"]}
+{"question":"Xe VinFast nào giá rẻ nhất?","must_include":["VF5","458"]}
+{"question":"Tôi nên mua xe nào trong tầm giá 700 triệu?","must_include":["VF6","675"]}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 import time
+import re
 from dataclasses import dataclass
 
 from .incidents import STATE
@@ -35,36 +36,61 @@ class FakeLLM:
 
         prompt_lower = prompt.lower()
 
-        # ===== EXTRACT CONTEXT FROM RAG =====
-        # giả định prompt sẽ có dạng:
-        # "Question: ... \n Context: ..."
-
+        # ===== EXTRACT CONTEXT =====
         if "context:" in prompt_lower:
             context = prompt.split("Context:")[-1].strip()
         else:
             context = ""
 
-        # ===== RESPONSE LOGIC =====
+        # ===== DETECT MODELS =====
+        matches = re.findall(r"vf\s?\d+", prompt_lower)
+        models = list(set([m.replace(" ", "") for m in matches]))
 
-        # Nếu có context → ưu tiên dùng context
-        if context and "vinfast" in context.lower():
-            answer = f"Dựa trên thông tin tìm được: {context}"
-
-        # So sánh xe
-        elif "so sánh" in prompt_lower:
-            answer = "Bạn nên so sánh dựa trên giá, tầm hoạt động và phân khúc của từng dòng xe VinFast."
-
-        # Xe chạy xa
-        elif "km" in prompt_lower or "xa" in prompt_lower:
-            answer = "Bạn nên chọn xe có tầm hoạt động cao như VF8 hoặc VF9 để đi xa."
-
-        # Xe nhỏ gọn
-        elif "nhỏ gọn" in prompt_lower or "thành phố" in prompt_lower:
-            answer = "VF5 là lựa chọn phù hợp vì là xe điện đô thị nhỏ gọn."
-
-        # fallback
+        # ===== DETECT INTENT =====
+        if "so sánh" in prompt_lower or "khác nhau" in prompt_lower:
+            intent = "compare"
+        elif any(x in prompt_lower for x in ["nên chọn", "tư vấn", "phù hợp", "xe nào", "gợi ý"]):
+            intent = "recommend"
         else:
-            answer = "VinFast có nhiều dòng xe như VF5, VF6, VF7, VF8 và VF9 phù hợp nhiều nhu cầu khác nhau."
+            intent = "qa"
+
+        # ===== LOGIC =====
+
+        # -------- COMPARE --------
+        if intent == "compare" and len(models) >= 2:
+            if context:
+                parts = context.split("\n")
+                answer = "So sánh các xe VinFast:\n"
+                for p in parts:
+                    answer += f"- {p}\n"
+            else:
+                answer = "Bạn có thể so sánh các xe dựa trên giá, tầm hoạt động và phân khúc."
+
+        # -------- QA --------
+        elif intent == "qa" and len(models) == 1:
+            if context:
+                answer = f"Thông tin chi tiết:\n{context}"
+            else:
+                answer = f"Chưa có dữ liệu chi tiết cho {models[0].upper()}."
+
+        # -------- RECOMMEND --------
+        elif intent == "recommend":
+            if "nhỏ gọn" in prompt_lower or "thành phố" in prompt_lower:
+                answer = "Bạn nên chọn VinFast VF5 vì đây là xe điện nhỏ gọn, phù hợp di chuyển trong thành phố."
+            elif "gia đình" in prompt_lower:
+                answer = "Bạn có thể chọn VF6 hoặc VF8 vì phù hợp cho gia đình với không gian rộng rãi."
+            elif "chạy xa" in prompt_lower or "km" in prompt_lower:
+                answer = "VF9 là lựa chọn tốt nhất vì có tầm hoạt động lên đến 594 km."
+            elif "giá rẻ" in prompt_lower:
+                answer = "VF5 là mẫu xe có giá thấp nhất trong các dòng SUV VinFast hiện tại."
+            elif "700" in prompt_lower:
+                answer = "VF6 là lựa chọn phù hợp trong tầm giá khoảng 675 triệu."
+            else:
+                answer = "Bạn có thể cân nhắc VF5, VF6 hoặc VF7 tùy theo nhu cầu sử dụng."
+
+        # -------- FALLBACK --------
+        else:
+            answer = "Hiện tại tôi chưa hỗ trợ câu hỏi này. Vui lòng hỏi về các dòng xe VinFast như VF5, VF6, VF7."
 
         return FakeResponse(
             text=answer,

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from collections import defaultdict
 from pathlib import Path
-
+from datetime import datetime, timedelta, timezone
 
 def bucket_minute(ts: str) -> str:
     if not ts:
@@ -14,7 +14,11 @@ def bucket_minute(ts: str) -> str:
         hhmm = time_part[:5]
         return f"{date_part} {hhmm}"
     return ts[:16]
-
+def parse_ts(ts: str) -> datetime | None:
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except Exception:
+        return None
 
 def extract_preview(log_item: dict) -> str:
     payload = log_item.get("payload", {})
@@ -67,14 +71,40 @@ def load_logs(log_file: Path) -> list[dict]:
 
     return logs
 
+def bucket_15min(ts: str) -> str:
+    if not ts:
+        return "unknown"
 
+    ts = ts.replace("Z", "")
+    if "T" in ts:
+        date_part, time_part = ts.split("T", 1)
+
+        hour = time_part[:2]
+        minute = int(time_part[3:5])
+
+        bucket_min = (minute // 15) * 15
+
+        return f"{date_part} {hour}:{bucket_min:02d}"
+
+    return ts[:16]
 def build_dashboard_data(logs: list[dict]) -> dict:
     request_logs = [x for x in logs if x.get("event") == "request_received"]
     response_logs = [x for x in logs if x.get("event") == "response_sent"]
     error_logs = [x for x in logs if x.get("event") == "request_failed"]
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(hours=24)
 
+    filtered_logs = []
+
+    for x in logs:
+        ts = x.get("ts")
+        dt = parse_ts(ts)
+        if dt and dt >= cutoff:
+            filtered_logs.append(x)
+
+    logs = filtered_logs
     all_buckets = sorted({
-        bucket_minute(x.get("ts", ""))
+        bucket_15min(x.get("ts", ""))
         for x in logs
         if x.get("ts")
     }) or ["no-data"]
@@ -101,7 +131,7 @@ def build_dashboard_data(logs: list[dict]) -> dict:
     all_quality: list[float] = []
 
     for x in request_logs:
-        b = bucket_minute(x.get("ts", ""))
+        b = bucket_15min(x.get("ts", ""))
         traffic_map[b] += 1
 
         user_id = str(x.get("user_id_hash", "unknown"))
@@ -120,12 +150,12 @@ def build_dashboard_data(logs: list[dict]) -> dict:
         query_type_map[feature_map.get(feature, "Unknown")] += 1
 
     for x in error_logs:
-        b = bucket_minute(x.get("ts", ""))
+        b = bucket_15min(x.get("ts", ""))
         error_map[b] += 1
         error_type_map[str(x.get("error_type", "UnknownError"))] += 1
 
     for x in response_logs:
-        b = bucket_minute(x.get("ts", ""))
+        b = bucket_15min(x.get("ts", ""))
         latency = x.get("latency_ms")
         quality = x.get("quality_score")
         cost = x.get("cost_usd", 0)

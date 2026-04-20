@@ -91,11 +91,6 @@ def render_l2_html(data: dict) -> str:
                         yAxisID: 'y'
                     }},
                     {{
-                        label: 'Error count',
-                        data: data.error_count,
-                        yAxisID: 'y'
-                    }},
-                    {{
                         label: 'Error rate %',
                         data: data.error_rate,
                         yAxisID: 'y1'
@@ -119,18 +114,6 @@ def render_l2_html(data: dict) -> str:
                     }}
                 }}
             }}
-        }});
-
-        new Chart(document.getElementById('errorRateChart'), {{
-            type: 'line',
-            data: {{
-                labels: data.time_labels,
-                datasets: [
-                    {{ label: 'Error rate %', data: data.error_rate }},
-                    {{ label: 'Error count', data: data.error_count }}
-                ]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false }}
         }});
 
         new Chart(document.getElementById('costChart'), {{

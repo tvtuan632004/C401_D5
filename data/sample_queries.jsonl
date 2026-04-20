@@ -1,21 +1,14 @@
-// {"user_id":"u01","session_id":"s01","feature":"qa","message":"What is your refund policy? My email is student@vinuni.edu.vn"}
-// {"user_id":"u02","session_id":"s02","feature":"qa","message":"Explain why metrics traces and logs work together"}
-// {"user_id":"u03","session_id":"s03","feature":"summary","message":"Summarize the monitoring policy for production logging"}
-// {"user_id":"u04","session_id":"s04","feature":"qa","message":"Can I get help with policy and monitoring?"}
-// {"user_id":"u05","session_id":"s05","feature":"qa","message":"Here is my phone 0987654321, what should be logged?"}
-// {"user_id":"u06","session_id":"s06","feature":"summary","message":"Give me a short summary of the observability workflow"}
-// {"user_id":"u07","session_id":"s07","feature":"qa","message":"What should not appear in app logs?"}
-// {"user_id":"u08","session_id":"s08","feature":"qa","message":"How do I debug tail latency?"}
-// {"user_id":"u09","session_id":"s09","feature":"qa","message":"What is the policy for PII and credit card 4111 1111 1111 1111?"}
-// {"user_id":"u10","session_id":"s10","feature":"qa","message":"How should alerts be designed?"}
-
-{"user_id":"u01","session_id":"s01","feature":"consult","message":"Tôi muốn mua xe VinFast giá rẻ, có xe nào dưới 300 triệu không?"}
-{"user_id":"u02","session_id":"s02","feature":"consult","message":"VinFast VF 5 giá bao nhiêu và có ưu đãi gì?"}
-{"user_id":"u03","session_id":"s03","feature":"consult","message":"Xe VF e34 phù hợp đi trong thành phố không?"}
-{"user_id":"u04","session_id":"s04","feature":"compare","message":"So sánh VF 6 và VF 7 về giá và kích thước"}
-{"user_id":"u05","session_id":"s05","feature":"consult","message":"Xe VinFast nào chạy được hơn 300 km mỗi lần sạc?"}
-{"user_id":"u06","session_id":"s06","feature":"consult","message":"VF 8 thuộc phân khúc gì và giá bao nhiêu?"}
-{"user_id":"u07","session_id":"s07","feature":"consult","message":"VF 9 có bao nhiêu chỗ ngồi?"}
-{"user_id":"u08","session_id":"s08","feature":"consult","message":"Xe VinFast nào phù hợp chạy dịch vụ?"}
-{"user_id":"u09","session_id":"s09","feature":"consult","message":"Tôi cần xe điện nhỏ gọn đi trong thành phố, nên chọn xe nào?"}
-{"user_id":"u10","session_id":"s10","feature":"consult","message":"VinFast VF 3 có giá bao nhiêu và đi được bao xa?"}
+{"user_id":"u01","session_id":"s01","feature":"qa","message":"VinFast VF5 giá bao nhiêu?"}
+{"user_id":"u02","session_id":"s02","feature":"qa","message":"VF6 chạy được bao nhiêu km?"}
+{"user_id":"u03","session_id":"s03","feature":"qa","message":"Cho tôi thông tin về VF7"}
+{"user_id":"u04","session_id":"s04","feature":"qa","message":"VF8 thuộc phân khúc gì?"}
+{"user_id":"u05","session_id":"s05","feature":"qa","message":"VF9 có đặc điểm gì nổi bật?"}
+{"user_id":"u06","session_id":"s06","feature":"compare","message":"So sánh VF5 và VF6"}
+{"user_id":"u07","session_id":"s07","feature":"compare","message":"VF6 và VF7 khác nhau như thế nào?"}
+{"user_id":"u08","session_id":"s08","feature":"compare","message":"So sánh VF7 và VF8 về giá và tầm hoạt động"}
+{"user_id":"u09","session_id":"s09","feature":"compare","message":"VF8 và VF9 nên chọn xe nào tốt hơn?"}
+{"user_id":"u10","session_id":"s10","feature":"recommend","message":"Tôi cần xe điện nhỏ gọn đi trong thành phố"}
+{"user_id":"u11","session_id":"s11","feature":"recommend","message":"Xe nào phù hợp gia đình 5 người?"}
+{"user_id":"u12","session_id":"s12","feature":"recommend","message":"Tôi muốn xe chạy xa nhất thì nên chọn xe nào?"}
+{"user_id":"u13","session_id":"s13","feature":"recommend","message":"Xe VinFast nào giá rẻ nhất?"}
+{"user_id":"u14","session_id":"s14","feature":"recommend","message":"Tôi nên mua xe nào trong tầm giá 700 triệu?"}
